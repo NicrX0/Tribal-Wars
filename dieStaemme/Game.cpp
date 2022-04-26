@@ -47,7 +47,7 @@ void Game::Run()
 		//Update screen
 		g_pFramework->Render();
 
-		//
+		//test
 		processEvents();
 
 		//Reset Keyboard state
