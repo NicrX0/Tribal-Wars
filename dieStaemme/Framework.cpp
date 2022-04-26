@@ -56,6 +56,7 @@ bool Framework::Init(int ScreenWidth, int ScreenHeight)
 	}
 
 	m_pKeyboard = new KeyboardHandler;
+	e = new SDL_Event;
 	return success;
 }
 

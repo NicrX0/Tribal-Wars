@@ -25,10 +25,6 @@ void Game::Run()
 	//Keyboard handler
 	KeyboardHandler keyboard;
 
-	//Event handler
-	SDL_Event e;
-	int choice = 0;
-
 	showMainmenu();
 
 	//Init test village
@@ -102,12 +98,9 @@ void Game::processEvents()
 
 		g_pFramework->Render();
 
-		//Event handler
-		SDL_Event e;
-
-		if (SDL_PollEvent(&e))
+		if (SDL_PollEvent(g_pFramework->e))
 		{
-			menuChoice = handleVillageButtons(e, menuChoice);
+			menuChoice = handleVillageButtons(*g_pFramework->e, menuChoice);
 			switch (menuChoice)
 			{
 			//Play button
@@ -123,7 +116,7 @@ void Game::processEvents()
 			}break;
 			}
 
-			if (e.type == SDL_QUIT)
+			if (g_pFramework->e->type == SDL_QUIT)
 			{
 				m_bGameRun = false;
 			}

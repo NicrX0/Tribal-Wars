@@ -64,70 +64,11 @@ void Building::setPosition(int x, int y)
 	mPosition.y = y;
 }
 
-int Building::handleEvent()//SDL_Event* e, int choice)
+int Building::handleEvent()
 {
-	//m_pBuildingButton->getButtonCoords();
-	m_pBuildingButton->handleEvent(&g_pFramework->e, 1);
-	/*while (SDL_PollEvent(&g_pFramework->e))
-	{
-		//If mouse event happened
-		if (g_pFramework->e.type == SDL_MOUSEMOTION || g_pFramework->e.type == SDL_MOUSEBUTTONDOWN || g_pFramework->e.type == SDL_MOUSEBUTTONUP)
-		{
-			//Get mouse position
-			int x, y;
-			SDL_GetMouseState(&x, &y);
+	SDL_PollEvent(g_pFramework->e);
+	m_pBuildingButton->handleEvent();
 
-			//std::cout << "Mouse moved. X: " << x << " Y: " << y << std::endl;
-
-			//Check if mouse is in button
-			bool inside = true;
-
-			//Mouse is left of the button
-			if (x < mPosition.x) { inside = false; }
-			//Mouse is right of the button
-			else if (x > mPosition.x + mBuildingHitboxRect.w) { inside = false; }
-			//Mouse is above the button
-			else if (y < mPosition.y) { inside = false; }
-			//Mouse is below the button
-			else if (y > mPosition.y + mBuildingHitboxRect.h) { inside = false; }
-
-			//Mouse is outside button
-			if (!inside)
-			{
-				mCurrentSprite = MAIN_BUILDING;
-				_isPressed = false; //Reset button state if mouse leaves button while _isPressed
-			}
-
-			//Mouse is inside button
-			else
-			{
-				//Set mouse over sprite
-				switch (g_pFramework->e.type)
-				{
-				case SDL_MOUSEMOTION:
-					mCurrentSprite = MAIN_BUILDING;
-					printf("Mouse moved.\n");
-					break;
-
-				case SDL_MOUSEBUTTONDOWN:
-					mCurrentSprite = MAIN_BUILDING;
-					_isPressed = true;
-					printf("Button clicked.\n");
-					break;
-
-				case SDL_MOUSEBUTTONUP:
-					mCurrentSprite = MAIN_BUILDING;
-					if (isClicked());
-					{
-						return buttonNumber;
-					}
-					break;
-					break;
-				}
-			}
-		}
-	}
-	*/
 	return 1; //return old value if nothing changed
 }
 

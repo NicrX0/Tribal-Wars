@@ -70,6 +70,65 @@ void LButton::setPosition(int x, int y)
 	mPosition.y = y;
 }
 
+void LButton::handleEvent()
+{
+	//If mouse event happened
+	if (g_pFramework->e->type == SDL_MOUSEMOTION || g_pFramework->e->type == SDL_MOUSEBUTTONDOWN || g_pFramework->e->type == SDL_MOUSEBUTTONUP)
+	{
+		//Get mouse position
+		int x, y;
+		SDL_GetMouseState(&x, &y);
+
+		//std::cout << "Mouse moved. X: " << x << " Y: " << y << std::endl;
+
+		//Check if mouse is in button
+		bool inside = true;
+
+		//Mouse is left of the button
+		if (x < mPosition.x) { inside = false; }
+		//Mouse is right of the button
+		else if (x > mPosition.x + mButtonHitboxRect.w) { inside = false; }
+		//Mouse is above the button
+		else if (y < mPosition.y) { inside = false; }
+		//Mouse is below the button
+		else if (y > mPosition.y + mButtonHitboxRect.h) { inside = false; }
+
+		//Mouse is outside button
+		if (!inside)
+		{
+			_isPressed = false; //Reset button state if mouse leaves button while _isPressed
+		}
+
+		//Mouse is inside button
+		else
+		{
+			//Set mouse over sprite
+			switch (g_pFramework->e->type)
+			{
+			case SDL_MOUSEMOTION:
+				mCurrentSprite = BUTTON_SPRITE_MOUSE_OVER_MOTION;
+				printf("Mouse moved.\n");
+				break;
+
+			case SDL_MOUSEBUTTONDOWN:
+				mCurrentSprite = BUTTON_SPRITE_MOUSE_DOWN;
+				_isPressed = true;
+				printf("Button clicked.\n");
+				break;
+
+			case SDL_MOUSEBUTTONUP:
+				mCurrentSprite = BUTTON_SPRITE_MOUSE_UP;
+				if (isClicked());
+				{
+					
+				}
+				break;
+				break;
+			}
+		}
+	}
+}
+
 int LButton::handleEvent(SDL_Event* e, int choice)
 {
 	//If mouse event happened

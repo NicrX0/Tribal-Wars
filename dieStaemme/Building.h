@@ -58,8 +58,6 @@ private:
 
 	LTexture* m_pBuildingTexture;
 
-	SDL_Event e;
-
 	LButton* m_pBuildingButton;
 };
 

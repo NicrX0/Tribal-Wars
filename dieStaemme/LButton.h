@@ -21,6 +21,8 @@ public:
 
 	void setPosition(int x, int y);
 
+	void handleEvent();
+
 	int handleEvent(SDL_Event* e, int choice);
 
 	bool isClicked();
