@@ -69,7 +69,7 @@ int Building::handleEvent()
 	SDL_PollEvent(g_pFramework->e);
 	m_pBuildingButton->handleEvent();
 
-	return 1; //return old value if nothing changed test4
+	return 1; //return old value if nothing changed test456
 }
 
 bool Building::isClicked()
