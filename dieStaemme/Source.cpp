@@ -16,7 +16,7 @@ int main(int argc, char* args[])
     std::cout << "Zahl 3: ";
     std::cin >> z3;
     std::cout << std::endl;
-    test2
+    test2 test3
     temp = z1 / z2;
     std::cout << "Ergebnis: " << temp << std::endl;
     */
