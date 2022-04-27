@@ -17,8 +17,6 @@ public:
 	void Render();
 	void resetKeyFlags();
 
-	SDL_Event* e;
-
 	SDL_Surface* GetScreen() { return m_pScreen; }
 	SDL_Renderer* GetRenderer() { return gRenderer; }
 	TTF_Font* GetFont() { return gFont; }

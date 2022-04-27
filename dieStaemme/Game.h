@@ -15,10 +15,12 @@ public:
 
 	bool loadMedia(SDL_Renderer* renderer);
 
-	//Functions
-	void showMainmenu();
+	//Scenes
+	int showMainmenu(int selectedScreen);
+	int showGameScreen(int selectedScreen);
+
 	int handleMainmenuButtons(SDL_Event e, int choice);
-	int handleVillageButtons(SDL_Event e, int choice);
+	int handleVillageButtons(SDL_Event e);
 
 private:
 
@@ -28,6 +30,7 @@ private:
 
 	int m_iMainMenu;
 	bool m_bGameRun;
+	int selectedScreen;
 
 	//Textures
 	LTexture* m_pGreyBackgroundTexture;

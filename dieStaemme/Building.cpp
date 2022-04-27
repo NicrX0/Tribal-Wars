@@ -66,8 +66,7 @@ void Building::setPosition(int x, int y)
 
 int Building::handleEvent()
 {
-	SDL_PollEvent(g_pFramework->e);
-	m_pBuildingButton->handleEvent();
+	//m_pBuildingButton->handleEvent();
 
 	return 1; //return old value if nothing changed test456
 }

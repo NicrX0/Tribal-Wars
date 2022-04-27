@@ -15,6 +15,7 @@ bool Game::Initialize(SDL_Renderer* renderer)
 		printf("Failed to load media!\n");
 	}
 
+	selectedScreen = 1;
 	m_iMainMenu = 0;
 	m_bGameRun = true;
 	return success;
@@ -25,7 +26,8 @@ void Game::Run()
 	//Keyboard handler
 	KeyboardHandler keyboard;
 
-	showMainmenu();
+	//Event handler
+	SDL_Event e;
 
 	//Init test village
 	m_pVillage = new Village;
@@ -34,15 +36,20 @@ void Game::Run()
 
 	while (m_bGameRun == true)
 	{
+		switch (selectedScreen)
+		{
+		case 1:
+			selectedScreen = showMainmenu(selectedScreen);
+			break;
+		case 2:
+			selectedScreen = showGameScreen(selectedScreen);
+			break;
+		default:
+			//errorscreen();
+			break;
+		}
 		//Update framework and clear buffer
 		g_pFramework->Update();
-
-		//Update and draw buttons
-		m_pExitButton->render();
-
-		//Update and draw village
-		m_pVillage->update();
-		m_pVillage->render();
 
 		//Update screen
 		g_pFramework->Render();
@@ -81,7 +88,7 @@ bool Game::loadMedia(SDL_Renderer* renderer)
 	m_pQuitButton = new LButton(2, "assets/quit_button.png");
 	m_pQuitButton->setPosition(g_pFramework->getScreenWidth() * 0.5f - m_pQuitButton->getButtonTextureWidth() * 0.5f, g_pFramework->getScreenHeight() * 0.66f);
 
-	m_pExitButton = new LButton(3, "assets/x_button_sheet.png");
+	m_pExitButton = new LButton(1, "assets/x_button_sheet.png");
 	m_pExitButton->setPosition(g_pFramework->getScreenWidth() - m_pExitButton->getButtonTextureWidth(), 0);
 
 	//Load main screen end
@@ -91,16 +98,17 @@ bool Game::loadMedia(SDL_Renderer* renderer)
 
 void Game::processEvents()
 {
+	//Event handler
+	SDL_Event e;
+
 	int menuChoice = 0;
 
 		//Draw Textures
 		m_pExitButton->render();
 
-		g_pFramework->Render();
-
-		if (SDL_PollEvent(g_pFramework->e))
+		if (SDL_PollEvent(&e))
 		{
-			menuChoice = handleVillageButtons(*g_pFramework->e, menuChoice);
+		//	menuChoice = handleVillageButtons(e, menuChoice);
 			switch (menuChoice)
 			{
 			//Play button
@@ -116,16 +124,24 @@ void Game::processEvents()
 			}break;
 			}
 
-			if (g_pFramework->e->type == SDL_QUIT)
+			if (e.type == SDL_QUIT)
 			{
 				m_bGameRun = false;
 			}
 		}
 }
 
-void Game::showMainmenu()
+int Game::showMainmenu(int selectedScreen)
 {
+	// Push a single event manually to reset button states when returning to this window
+	SDL_Event sdlevent;
+	sdlevent.type = SDL_MOUSEBUTTONUP;
+
+	SDL_PushEvent(&sdlevent);
+
 	int menuChoice = 0;
+
+	m_iMainMenu = 0; //Reset flag 
 
 	while (m_iMainMenu == 0)
 	{
@@ -143,7 +159,7 @@ void Game::showMainmenu()
 		//Event handler
 		SDL_Event e;
 
-		if (SDL_PollEvent(&e))
+		while (SDL_PollEvent(&e))
 		{
 			menuChoice = handleMainmenuButtons(e, menuChoice);
 			switch (menuChoice)
@@ -153,6 +169,8 @@ void Game::showMainmenu()
 			{
 				m_iMainMenu = 1;
 				m_bGameRun = true;
+				selectedScreen = 2;
+				return selectedScreen;
 			}break;
 
 			//Quit button
@@ -160,6 +178,8 @@ void Game::showMainmenu()
 			{
 				m_iMainMenu = 1;
 				m_bGameRun = false;
+				selectedScreen = 3;
+				return selectedScreen;
 			}break;
 			}
 
@@ -167,9 +187,64 @@ void Game::showMainmenu()
 			{
 				m_iMainMenu = 1;
 				m_bGameRun = false;
+				selectedScreen = 0;
+				return selectedScreen;
 			}
 		}
 	}
+}
+
+int Game::showGameScreen(int selectedScreen)
+{
+	// Push a single event manually to reset button states when returning to this window
+	SDL_Event sdlevent;
+	sdlevent.type = SDL_MOUSEBUTTONUP;
+
+	SDL_PushEvent(&sdlevent);
+
+	int menuChoice = 0;
+
+	m_iMainMenu = 0; //Reset flag 
+
+	//Event handler
+	SDL_Event e;
+
+	while (m_iMainMenu == 0)
+	{
+		//Update and draw buttons
+		m_pExitButton->render();
+
+		//Update and draw village
+		m_pVillage->update();
+		m_pVillage->render();
+
+		while (SDL_PollEvent(&e))
+		{
+			selectedScreen = 0;
+			selectedScreen = handleVillageButtons(e);
+			switch (selectedScreen)
+			{
+				//Play button
+			case(1):
+			{
+				m_iMainMenu = 1;
+			}break;
+
+			//Quit button
+			case(2):
+			{
+				m_iMainMenu = 2;
+			}break;
+			//Quit button
+			case(3):
+			{
+				m_iMainMenu = 3;
+			}break;
+			}
+		}
+	}
+	
+	return selectedScreen;
 }
 
 int Game::handleMainmenuButtons(SDL_Event e, int choice)
@@ -179,10 +254,9 @@ int Game::handleMainmenuButtons(SDL_Event e, int choice)
 	return choice;
 }
 
-int Game::handleVillageButtons(SDL_Event e, int choice)
+int Game::handleVillageButtons(SDL_Event e)
 {
-	m_pVillage->handleButtons();
+	selectedScreen = m_pExitButton->handleEvent(&e, selectedScreen);
 
-	choice = m_pExitButton->handleEvent(&e, choice);
-	return choice;
+	return selectedScreen;
 }
