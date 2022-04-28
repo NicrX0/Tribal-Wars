@@ -88,7 +88,7 @@ bool Game::loadMedia(SDL_Renderer* renderer)
 	m_pQuitButton = new LButton(2, "assets/quit_button.png");
 	m_pQuitButton->setPosition(g_pFramework->getScreenWidth() * 0.5f - m_pQuitButton->getButtonTextureWidth() * 0.5f, g_pFramework->getScreenHeight() * 0.66f);
 
-	m_pExitButton = new LButton(1, "assets/x_button_sheet.png");
+	m_pExitButton = new LButton(2, "assets/x_button_sheet.png");
 	m_pExitButton->setPosition(g_pFramework->getScreenWidth() - m_pExitButton->getButtonTextureWidth(), 0);
 
 	//Load main screen end
@@ -218,9 +218,11 @@ int Game::showGameScreen(int selectedScreen)
 		m_pVillage->update();
 		m_pVillage->render();
 
+		g_pFramework->Render();
+
 		while (SDL_PollEvent(&e))
 		{
-			selectedScreen = 0;
+			selectedScreen = 2;
 			selectedScreen = handleVillageButtons(e);
 			switch (selectedScreen)
 			{
