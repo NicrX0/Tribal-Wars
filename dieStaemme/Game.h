@@ -29,6 +29,8 @@ private:
 	SDL_Window* gWindow;
 
 	int m_iMainMenu;
+	int m_iGameScreen;
+
 	bool m_bGameRun;
 	int selectedScreen;
 

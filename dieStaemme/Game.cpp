@@ -88,7 +88,7 @@ bool Game::loadMedia(SDL_Renderer* renderer)
 	m_pQuitButton = new LButton(2, "assets/quit_button.png");
 	m_pQuitButton->setPosition(g_pFramework->getScreenWidth() * 0.5f - m_pQuitButton->getButtonTextureWidth() * 0.5f, g_pFramework->getScreenHeight() * 0.66f);
 
-	m_pExitButton = new LButton(2, "assets/x_button_sheet.png");
+	m_pExitButton = new LButton(1, "assets/x_button_sheet.png");
 	m_pExitButton->setPosition(g_pFramework->getScreenWidth() - m_pExitButton->getButtonTextureWidth(), 0);
 
 	//Load main screen end
@@ -103,12 +103,8 @@ void Game::processEvents()
 
 	int menuChoice = 0;
 
-		//Draw Textures
-		m_pExitButton->render();
-
 		if (SDL_PollEvent(&e))
 		{
-		//	menuChoice = handleVillageButtons(e, menuChoice);
 			switch (menuChoice)
 			{
 			//Play button
@@ -133,12 +129,6 @@ void Game::processEvents()
 
 int Game::showMainmenu(int selectedScreen)
 {
-	// Push a single event manually to reset button states when returning to this window
-	SDL_Event sdlevent;
-	sdlevent.type = SDL_MOUSEBUTTONUP;
-
-	SDL_PushEvent(&sdlevent);
-
 	int menuChoice = 0;
 
 	m_iMainMenu = 0; //Reset flag 
@@ -187,8 +177,6 @@ int Game::showMainmenu(int selectedScreen)
 			{
 				m_iMainMenu = 1;
 				m_bGameRun = false;
-				selectedScreen = 0;
-				return selectedScreen;
 			}
 		}
 	}
@@ -196,21 +184,16 @@ int Game::showMainmenu(int selectedScreen)
 
 int Game::showGameScreen(int selectedScreen)
 {
-	// Push a single event manually to reset button states when returning to this window
-	SDL_Event sdlevent;
-	sdlevent.type = SDL_MOUSEBUTTONUP;
-
-	SDL_PushEvent(&sdlevent);
-
-	int menuChoice = 0;
-
-	m_iMainMenu = 0; //Reset flag 
+	m_iGameScreen = 0; //Reset flag 
 
 	//Event handler
 	SDL_Event e;
 
-	while (m_iMainMenu == 0)
+	while (m_iGameScreen == 0)
 	{
+		//Update Framework
+		g_pFramework->Update();
+
 		//Update and draw buttons
 		m_pExitButton->render();
 
@@ -229,19 +212,25 @@ int Game::showGameScreen(int selectedScreen)
 				//Play button
 			case(1):
 			{
-				m_iMainMenu = 1;
+				m_iGameScreen = 1;
 			}break;
 
 			//Quit button
 			case(2):
 			{
-				m_iMainMenu = 2;
+				m_iGameScreen = 2;
 			}break;
 			//Quit button
 			case(3):
 			{
-				m_iMainMenu = 3;
+				m_iGameScreen = 3;
 			}break;
+			}
+			if (e.type == SDL_QUIT)
+			{
+				m_bGameRun = false;
+				selectedScreen = 0;
+				return selectedScreen;
 			}
 		}
 	}

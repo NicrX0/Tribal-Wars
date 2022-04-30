@@ -120,7 +120,7 @@ int LButton::handleEvent(SDL_Event* e, int choice)
 
 			case SDL_MOUSEBUTTONUP:
 				mCurrentSprite = BUTTON_SPRITE_MOUSE_UP;
-				if(isClicked());
+				if(isClicked())
 				{
 					return buttonNumber;
 				}
@@ -136,6 +136,7 @@ bool LButton::isClicked()
 {
 	if (_isPressed)
 	{
+		_isPressed = false;
 		_isReleased = true;
 		printf("Button was clicked.\n");
 		return true;
