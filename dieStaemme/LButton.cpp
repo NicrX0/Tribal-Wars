@@ -109,7 +109,7 @@ int LButton::handleEvent(int choice)
 			{
 			case SDL_MOUSEMOTION:
 				mCurrentSprite = BUTTON_SPRITE_MOUSE_OVER_MOTION;
-				//printf("Mouse moved.\n");
+				printf("Mouse moved.\n");
 				break;
 
 			case SDL_MOUSEBUTTONDOWN:
@@ -141,7 +141,7 @@ int LButton::handleBuildingEvent(enum BuildingType building)
 		int x, y;
 		SDL_GetMouseState(&x, &y);
 
-		//std::cout << "Mouse moved. X: " << x << " Y: " << y << std::endl;
+		//std::cout << "Clicked at X: " << x << " Y: " << y << std::endl;
 
 		//Check if mouse is in button
 		bool inside = true;
@@ -170,7 +170,7 @@ int LButton::handleBuildingEvent(enum BuildingType building)
 			{
 			case SDL_MOUSEMOTION:
 				mCurrentSprite = BUTTON_SPRITE_MOUSE_OVER_MOTION;
-				//printf("Mouse moved.\n");
+				printf("Mouse moved.\n");
 				break;
 
 			case SDL_MOUSEBUTTONDOWN:

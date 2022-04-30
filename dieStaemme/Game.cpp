@@ -191,35 +191,33 @@ int Game::showGameScreen(int selectedScreen)
 
 		g_pFramework->Render();
 
-		while (SDL_PollEvent(&g_pFramework->globalEvent))
-		{
-			selectedScreen = 2;
-			selectedScreen = handleVillageButtons();
-			switch (selectedScreen)
-			{
-				//Play button
-			case(1):
-			{
-				m_iGameScreen = 1;
-			}break;
 
-			//Quit button
-			case(2):
-			{
-				m_iGameScreen = 2;
-			}break;
-			//Quit button
-			case(3):
-			{
-				m_iGameScreen = 3;
-			}break;
-			}
-			if (g_pFramework->globalEvent.type == SDL_QUIT)
-			{
-				m_bGameRun = false;
-				selectedScreen = 0;
-				return selectedScreen;
-			}
+		selectedScreen = 2;
+		selectedScreen = handleVillageButtons();
+		switch (selectedScreen)
+		{
+			//Play button
+		case(1):
+		{
+			m_iGameScreen = 1;
+		}break;
+
+		//Quit button
+		case(2):
+		{
+			m_iGameScreen = 2;
+		}break;
+		//Quit button
+		case(3):
+		{
+			m_iGameScreen = 3;
+		}break;
+		}
+		if (g_pFramework->globalEvent.type == SDL_QUIT)
+		{
+			m_bGameRun = false;
+			selectedScreen = 0;
+			return selectedScreen;
 		}
 	}
 	

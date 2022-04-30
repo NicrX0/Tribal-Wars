@@ -91,6 +91,7 @@ void Framework::Update()
 	shoot_pressed = m_pKeyboard->getShootState();
 
 	SDL_PumpEvents();
+	SDL_PollEvent(&globalEvent);
 }
 
 

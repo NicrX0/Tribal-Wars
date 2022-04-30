@@ -67,11 +67,8 @@ void Building::setPosition(int x, int y)
 
 int Building::handleEvent(enum BuildingType building)
 {
-	if (SDL_PollEvent(&g_pFramework->globalEvent))
-	{
-		printf("Building handleEvent called.\n");
-		m_pBuildingButton->handleBuildingEvent(building);
-	}
+
+	m_pBuildingButton->handleBuildingEvent(building);
 
 	return 1; //return old value if nothing changed
 }
