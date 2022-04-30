@@ -34,6 +34,8 @@ public:
 	bool getRightKeystate() { return right_pressed; }
 	bool getShootKeystate() { return shoot_pressed; }
 
+	SDL_Event globalEvent;
+
 private:
 
 	float m_ScreenWidth;

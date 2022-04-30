@@ -16,7 +16,7 @@ public:
 
 	void setPosition(int x, int y);
 
-	int handleEvent();
+	int handleEvent(enum BuildingType);
 
 	bool isClicked();
 

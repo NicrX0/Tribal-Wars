@@ -51,6 +51,7 @@ Building::Building(int type)
 	mBuildingHitboxRect.h = m_pBuildingTexture->getHeight() / BUTTON_SPRITE_TOTAL;
 
 	m_pBuildingButton = new LButton(g_pFramework->getScreenWidth() / 2 - BUILDING_TEXTURE_WIDTH / 2, g_pFramework->getScreenHeight() * 0.66f, mBuildingHitboxRect.w, mBuildingHitboxRect.h);
+	m_pBuildingButton->setPosition(0, 0);
 }
 
 Building::~Building()
@@ -64,11 +65,15 @@ void Building::setPosition(int x, int y)
 	mPosition.y = y;
 }
 
-int Building::handleEvent()
+int Building::handleEvent(enum BuildingType building)
 {
-	//m_pBuildingButton->handleEvent();
+	if (SDL_PollEvent(&g_pFramework->globalEvent))
+	{
+		printf("Building handleEvent called.\n");
+		m_pBuildingButton->handleBuildingEvent(building);
+	}
 
-	return 1; //return old value if nothing changed test456
+	return 1; //return old value if nothing changed
 }
 
 bool Building::isClicked()

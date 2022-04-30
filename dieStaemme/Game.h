@@ -19,8 +19,8 @@ public:
 	int showMainmenu(int selectedScreen);
 	int showGameScreen(int selectedScreen);
 
-	int handleMainmenuButtons(SDL_Event e, int choice);
-	int handleVillageButtons(SDL_Event e);
+	int handleMainmenuButtons(int choice);
+	int handleVillageButtons();
 
 private:
 

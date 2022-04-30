@@ -21,7 +21,9 @@ public:
 
 	void setPosition(int x, int y);
 
-	int handleEvent(SDL_Event* e, int choice);
+	int handleEvent(int choice);
+
+	int handleBuildingEvent(enum BuildingType);
 
 	bool isClicked();
 

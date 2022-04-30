@@ -66,7 +66,7 @@ void Village::update()
 	//Check if storage is full
 	checkStorage();
 
-	//m_pMainBuildingTexture->handleEvent();
+	m_pMainBuildingTexture->handleEvent(MAIN_BUILDING);
 }
 
 void Village::render()
