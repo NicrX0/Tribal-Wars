@@ -11,6 +11,8 @@ public:
 	void update();
 	void render();
 
+	void DebugWindow();
+
 	void handleButtons();
 
 private:
@@ -29,6 +31,8 @@ private:
 	LTexture* m_pIronTextTexture;
 	LTexture* m_pClayTextTexture;
 	LTexture* m_pBackgroundTexture;
+
+	LTexture* m_pDebugTexture;
 
 	Building* m_pMainBuildingTexture;
 };

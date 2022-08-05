@@ -57,6 +57,9 @@ bool Framework::Init(int ScreenWidth, int ScreenHeight)
 
 	m_pKeyboard = new KeyboardHandler;
 
+	Tickcounter = 0;
+	TicksPerSecond = 0;
+
 	return success;
 }
 
@@ -81,6 +84,14 @@ void Framework::Quit()
 void Framework::Update()
 {
 	g_pTimer->Update();
+
+	//TPS calculator
+	Tickcounter++; //increment Tickcounter
+	if (g_pTimer->TPSstatus()) //Reset all if flag is true
+	{
+		TicksPerSecond = Tickcounter / g_pTimer->getCurTime();
+		g_pTimer->TPSreset();
+	}
 
 	//Check keyboardstate and set flags for pressed keys
 	m_pKeyboard->checkKeyStates();

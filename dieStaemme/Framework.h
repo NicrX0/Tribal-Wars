@@ -34,6 +34,8 @@ public:
 	bool getRightKeystate() { return right_pressed; }
 	bool getShootKeystate() { return shoot_pressed; }
 
+	int getTPS() { return TicksPerSecond; }
+
 	SDL_Event globalEvent;
 
 private:
@@ -47,6 +49,9 @@ private:
 	SDL_Window* gWindow;
 	SDL_Renderer* gRenderer;
 	SDL_Surface* gSurface;
+
+	int Tickcounter;
+	int TicksPerSecond;
 
 	//Globally used font
 	TTF_Font* gFont;

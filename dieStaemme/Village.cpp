@@ -3,13 +3,13 @@
 Village::Village()
 {
 	name = "Default";
-	storage = 205.0f;
+	storage = 300.0f;
 	ress_wood = 200.0f;
 	ress_iron = 200.0f;
 	ress_clay = 200.0f;
-	wood_per_tick = 1.0f;
-	iron_per_tick = 1.0f;
-	clay_per_tick = 1.0f;
+	wood_per_tick = 5.0f;
+	iron_per_tick = 5.0f;
+	clay_per_tick = 5.0f;
 
 
 	//Load background texture
@@ -38,6 +38,10 @@ Village::Village()
 	m_pWoodTextTexture = new LTexture;
 	m_pIronTextTexture = new LTexture;
 	m_pClayTextTexture = new LTexture;
+
+	//Create debug text texture
+	m_pDebugTexture = new LTexture;
+	m_pDebugTexture->SetPos(g_pFramework->getScreenWidth() * 0.02f, g_pFramework->getScreenHeight() * 0.2f);
 }
 
 Village::~Village()
@@ -117,9 +121,25 @@ void Village::render()
 
 	//Render buildings
 	m_pMainBuildingTexture->render();
+
+	//Render DebugWindow
+	DebugWindow();
 }
 
 void Village::handleButtons()
 {
 
+}
+
+void Village::DebugWindow()
+{
+	//Set textcolor black
+	SDL_Color textColor = { 0, 0, 0 };
+
+	if (!m_pDebugTexture->loadFromRenderedText("TPS: " + std::to_string(g_pFramework->getTPS()), textColor))
+	{
+		printf("Failed to render DebugWindow in Village!\n");
+	}
+
+	m_pDebugTexture->render();
 }

@@ -118,10 +118,10 @@ int LButton::handleEvent(int currentState)
 				printf("Button clicked.\n");
 				break;
 
-			case SDL_MOUSEBUTTONUP:
-				mCurrentSprite = BUTTON_SPRITE_MOUSE_UP;
+			case SDL_MOUSEBUTTONUP:	
 				if(isClicked())
 				{
+					mCurrentSprite = BUTTON_SPRITE_MOUSE_OUT; //reset sprite after click
 					return buttonNumber;
 				}
 				break;
