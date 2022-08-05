@@ -10,6 +10,12 @@ enum LButtonSprite
 	BUTTON_SPRITE_TOTAL = 4
 };
 
+enum Buttons
+{
+	PLAY_BUTTON = 1,
+	QUIT_BUTTON = 2
+};
+
 class LButton
 {
 public:
@@ -21,7 +27,7 @@ public:
 
 	void setPosition(int x, int y);
 
-	int handleEvent(int choice);
+	int handleEvent(int currentState);
 
 	int handleBuildingEvent(enum BuildingType);
 

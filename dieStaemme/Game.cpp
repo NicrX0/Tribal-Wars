@@ -36,10 +36,12 @@ void Game::Run()
 		switch (selectedScreen)
 		{
 		case 1:
-			selectedScreen = showMainmenu(selectedScreen);
+			//selectedScreen = showMainmenu(selectedScreen);
+			showMainmenu(selectedScreen);
 			break;
 		case 2:
-			selectedScreen = showGameScreen(selectedScreen);
+			//selectedScreen = showGameScreen(selectedScreen);
+			showGameScreen(selectedScreen);
 			break;
 		default:
 			//errorscreen();
@@ -79,10 +81,10 @@ bool Game::loadMedia(SDL_Renderer* renderer)
 
 	//Buttons
 
-	m_pPlayButton = new LButton(1, "assets/play_button.png");
+	m_pPlayButton = new LButton(2, "assets/play_button.png");
 	m_pPlayButton->setPosition(g_pFramework->getScreenWidth() * 0.5f - m_pPlayButton->getButtonTextureWidth() * 0.5f, g_pFramework->getScreenHeight() * 0.33f);
 
-	m_pQuitButton = new LButton(2, "assets/quit_button.png");
+	m_pQuitButton = new LButton(0, "assets/quit_button.png");
 	m_pQuitButton->setPosition(g_pFramework->getScreenWidth() * 0.5f - m_pQuitButton->getButtonTextureWidth() * 0.5f, g_pFramework->getScreenHeight() * 0.66f);
 
 	m_pExitButton = new LButton(1, "assets/x_button_sheet.png");
@@ -121,10 +123,8 @@ void Game::processEvents()
 		}
 }
 
-int Game::showMainmenu(int selectedScreen)
+void Game::showMainmenu(int selectedScreen)
 {
-	int menuChoice = 0;
-
 	m_iMainMenu = 0; //Reset flag 
 
 	while (m_iMainMenu == 0)
@@ -140,36 +140,7 @@ int Game::showMainmenu(int selectedScreen)
 
 		g_pFramework->Render();
 
-		while (SDL_PollEvent(&g_pFramework->globalEvent))
-		{
-			menuChoice = handleMainmenuButtons(menuChoice);
-			switch (menuChoice)
-			{
-			//Play button
-			case(1):
-			{
-				m_iMainMenu = 1;
-				m_bGameRun = true;
-				selectedScreen = 2;
-				return selectedScreen;
-			}break;
-
-			//Quit button
-			case(2):
-			{
-				m_iMainMenu = 1;
-				m_bGameRun = false;
-				selectedScreen = 3;
-				return selectedScreen;
-			}break;
-			}
-
-			if (g_pFramework->globalEvent.type == SDL_QUIT)
-			{
-				m_iMainMenu = 1;
-				m_bGameRun = false;
-			}
-		}
+		handleMainMenu();
 	}
 }
 
@@ -200,6 +171,7 @@ int Game::showGameScreen(int selectedScreen)
 		case(1):
 		{
 			m_iGameScreen = 1;
+			menuChoice = 1;
 		}break;
 
 		//Quit button
@@ -224,11 +196,13 @@ int Game::showGameScreen(int selectedScreen)
 	return selectedScreen;
 }
 
-int Game::handleMainmenuButtons(int choice)
+void Game::handleMainmenuButtons()
 {
-	choice = m_pPlayButton->handleEvent(choice);
-	choice = m_pQuitButton->handleEvent(choice);
-	return choice;
+	menuChoice = m_pPlayButton->handleEvent(selectedScreen);
+	selectedScreen = menuChoice; //Update selectedScreen if button was pressed
+
+	menuChoice = m_pQuitButton->handleEvent(selectedScreen);
+	selectedScreen = menuChoice;//Update selectedScreen if button was pressed
 }
 
 int Game::handleVillageButtons()
@@ -236,4 +210,45 @@ int Game::handleVillageButtons()
 	selectedScreen = m_pExitButton->handleEvent(selectedScreen);
 
 	return selectedScreen;
+}
+
+void Game::handleMainMenu()
+{
+	while (SDL_PollEvent(&g_pFramework->globalEvent))
+	{
+		handleMainmenuButtons();
+		switch (menuChoice)
+		{
+			//Play button
+		case(1):
+		{
+			m_iMainMenu = 1;
+			m_bGameRun = true;
+			selectedScreen = 1;
+		}break;
+
+		//X Button button
+		case(2):
+		{
+			m_iMainMenu = 1;
+			m_bGameRun = true;
+			selectedScreen = 2;
+		}break;
+
+		//Quit button
+		case(0):
+		{
+			printf("Button integer was 0, process ended.\n");
+			m_iMainMenu = 1;
+			m_bGameRun = false;
+			selectedScreen = 1;
+		}break;
+		}
+
+		if (g_pFramework->globalEvent.type == SDL_QUIT)
+		{
+			m_iMainMenu = 1;
+			m_bGameRun = false;
+		}
+	}
 }

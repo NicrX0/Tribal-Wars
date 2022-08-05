@@ -71,7 +71,7 @@ void LButton::setPosition(int x, int y)
 }
 
 
-int LButton::handleEvent(int choice)
+int LButton::handleEvent(int currentState)
 {
 	//If mouse event happened
 	if (g_pFramework->globalEvent.type == SDL_MOUSEMOTION || g_pFramework->globalEvent.type == SDL_MOUSEBUTTONDOWN || g_pFramework->globalEvent.type == SDL_MOUSEBUTTONUP)
@@ -109,7 +109,7 @@ int LButton::handleEvent(int choice)
 			{
 			case SDL_MOUSEMOTION:
 				mCurrentSprite = BUTTON_SPRITE_MOUSE_OVER_MOTION;
-				printf("Mouse moved.\n");
+				//printf("Mouse moved.\n");
 				break;
 
 			case SDL_MOUSEBUTTONDOWN:
@@ -129,7 +129,7 @@ int LButton::handleEvent(int choice)
 			}
 		}
 	}
-	return choice; //return old value if nothing changed
+	return currentState; //return old value if nothing changed
 }
 
 int LButton::handleBuildingEvent(enum BuildingType building)
@@ -170,7 +170,7 @@ int LButton::handleBuildingEvent(enum BuildingType building)
 			{
 			case SDL_MOUSEMOTION:
 				mCurrentSprite = BUTTON_SPRITE_MOUSE_OVER_MOTION;
-				printf("Mouse moved.\n");
+			//	printf("Mouse moved.\n");
 				break;
 
 			case SDL_MOUSEBUTTONDOWN:
