@@ -7,9 +7,9 @@ Village::Village()
 	ress_wood = 200.0f;
 	ress_iron = 200.0f;
 	ress_clay = 200.0f;
-	wood_per_tick = 5.0f;
-	iron_per_tick = 5.0f;
-	clay_per_tick = 5.0f;
+	wood_per_tick = 0.0000002f;
+	iron_per_tick = 0.0000002f;
+	clay_per_tick = 0.0000002f;
 
 
 	//Load background texture
@@ -63,9 +63,9 @@ void Village::checkStorage()
 void Village::update()
 {
 	//Update ressources
-	ress_wood = ress_wood + (wood_per_tick * g_pTimer->getElapsed());
-	ress_iron = ress_iron + (iron_per_tick * g_pTimer->getElapsed());
-	ress_clay = ress_clay + (clay_per_tick * g_pTimer->getElapsed());
+	ress_wood = ress_wood + (wood_per_tick * g_pFramework->getTPS());
+	ress_iron = ress_iron + (iron_per_tick * g_pFramework->getTPS());
+	ress_clay = ress_clay + (clay_per_tick * g_pFramework->getTPS());
 
 	//Check if storage is full
 	checkStorage();
