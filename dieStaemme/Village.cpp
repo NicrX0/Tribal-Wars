@@ -23,7 +23,7 @@ Village::Village()
 	m_pVillageNameTexture = new LTexture;
 
 	//Buildings
-	m_pMainBuildingTexture = new Building(MAIN_BUILDING);
+	m_pMainBuildingTexture = new Building(MAIN_BUILDING, g_pFramework->getScreenWidth() / 2, g_pFramework->getScreenHeight() * 0.66f);
 	m_pMainBuildingTexture->setPosition(g_pFramework->getScreenWidth() / 2 - m_pMainBuildingTexture->getBuildingTextureWidth() / 2, g_pFramework->getScreenHeight() * 0.66f);
 
 	//Set textcolor black

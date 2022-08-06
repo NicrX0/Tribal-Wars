@@ -11,7 +11,7 @@ Building::Building()
 	int level = 0;
 }
 
-Building::Building(int type)
+Building::Building(int type, int x_pos, int y_pos)
 {
 	//buttonNumber = btnNumber;
 
@@ -51,7 +51,7 @@ Building::Building(int type)
 	mBuildingHitboxRect.h = m_pBuildingTexture->getHeight() / BUTTON_SPRITE_TOTAL;
 
 	m_pBuildingButton = new LButton(g_pFramework->getScreenWidth() / 2 - BUILDING_TEXTURE_WIDTH / 2, g_pFramework->getScreenHeight() * 0.66f, mBuildingHitboxRect.w, mBuildingHitboxRect.h);
-	m_pBuildingButton->setPosition(0, 0);
+	m_pBuildingButton->setPosition(x_pos, y_pos);
 }
 
 Building::~Building()
@@ -70,7 +70,7 @@ int Building::handleEvent(enum BuildingType building)
 
 	m_pBuildingButton->handleBuildingEvent(building);
 
-	return 1; //return old value if nothing changed
+	return building; //return old value if nothing changed
 }
 
 bool Building::isClicked()

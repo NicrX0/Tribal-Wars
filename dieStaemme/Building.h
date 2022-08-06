@@ -11,7 +11,7 @@ class Building
 {
 public:
 	Building();
-	Building(int type);
+	Building(int type, int x_pos, int y_pos);
 	~Building();
 
 	void setPosition(int x, int y);

@@ -191,7 +191,7 @@ int LButton::handleBuildingEvent(enum BuildingType building)
 			}
 		}
 	}
-	return 1; //return old value if nothing changed
+	return building; //return old value if nothing changed
 }
 
 bool LButton::isClicked()
