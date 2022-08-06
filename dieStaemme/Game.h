@@ -16,18 +16,16 @@ public:
 	bool loadMedia(SDL_Renderer* renderer);
 
 	//Scenes
-	void showMainmenu(int selectedScreen);
-	void handleMainMenu();
+	int showMainmenu(int selectedScreen);
+	int handleMainMenu();
 
 	int showGameScreen(int selectedScreen);
 
 	void handleMainmenuButtons();
-	int handleVillageButtons();
+	void handleVillageButtons();
+	void DebugWindow();
 
 private:
-
-	void processEvents();
-
 	SDL_Window* gWindow;
 
 	int m_iMainMenu;
@@ -46,6 +44,8 @@ private:
 	LTexture* m_pBackgroundTexture;
 	LTexture* m_pHouse0Texture;
 	LTexture* m_pHouse1Texture;
+
+	LTexture* m_pDebugTexture;
 
 	//Village
 	Village* m_pVillage;
