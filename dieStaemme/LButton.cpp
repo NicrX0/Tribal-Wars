@@ -36,8 +36,8 @@ LButton::LButton(int btnNumber, std::string path)
 	BUTTON_TEXTURE_WIDTH = m_pButtonSpriteTexture->getWidth();
 	BUTTON_TEXTURE_HEIGHT = m_pButtonSpriteTexture->getHeight();
 
-	BUTTON_WIDTH = m_pButtonSpriteTexture->getWidthNew();
-	BUTTON_HEIGHT = m_pButtonSpriteTexture->getHeightNew();
+	BUTTON_WIDTH = m_pButtonSpriteTexture->getWidthOld();
+	BUTTON_HEIGHT = m_pButtonSpriteTexture->getHeightOld();
 
 	mButtonHitboxRect.w = m_pButtonSpriteTexture->getWidth();
 	mButtonHitboxRect.h = m_pButtonSpriteTexture->getHeight() / BUTTON_SPRITE_TOTAL;
@@ -51,17 +51,45 @@ LButton::LButton(int btnNumber, std::string path)
 	}
 }
 
-LButton::LButton(int x, int y, int w, int h)
+LButton::LButton(int space, int btnNumber, std::string path)
 {
+	buttonNumber = btnNumber;
+
 	_isPressed = false;
 	_isReleased = false;
 	_buttonClicked = false;
 
-	mPosition.x = x;
-	mPosition.y = y;
+	mPosition.x = NULL;
+	mPosition.y = NULL;
 
-	mButtonHitboxRect.w = w;
-	mButtonHitboxRect.h = h;
+	mCurrentSprite = BUTTON_SPRITE_MOUSE_OUT;
+
+	//Load button texture
+	m_pButtonSpriteTexture = new LTexture;
+	if (!m_pButtonSpriteTexture->loadFromFile(path, g_pFramework->GetRenderer()))
+	{
+		printf("Error loading button texture!\n");
+	}
+
+	BUTTON_TEXTURE_WIDTH = m_pButtonSpriteTexture->getWidth();
+	BUTTON_TEXTURE_HEIGHT = m_pButtonSpriteTexture->getHeight();
+
+	BUTTON_WIDTH = m_pButtonSpriteTexture->getWidthOld();
+	BUTTON_HEIGHT = m_pButtonSpriteTexture->getHeightOld();
+
+	mButtonHitboxRect.w = m_pButtonSpriteTexture->getWidth();
+	mButtonHitboxRect.h = m_pButtonSpriteTexture->getHeight();
+	//mButtonHitboxRect.h = m_pButtonSpriteTexture->getHeight() / BUILDING_BUTTON_SPRITE_TOTAL; REPLACE WHEN BUILDINGCLIPS CREATED FULLY AS IMAGE!!!
+
+	for (int i = 0; i < BUILDING_BUTTON_SPRITE_TOTAL; ++i)
+	{
+		buttonSpriteClips[i].x = 0;
+		buttonSpriteClips[i].y = i * BUTTON_HEIGHT;
+		//buttonSpriteClips[i].y = i * BUTTON_HEIGHT / BUILDING_BUTTON_SPRITE_TOTAL; REPLACE WHEN BUILDINGCLIPS CREATED FULLY AS IMAGE!!!
+		buttonSpriteClips[i].w = BUTTON_WIDTH;
+		buttonSpriteClips[i].h = BUTTON_HEIGHT;
+		//buttonSpriteClips[i].h = BUTTON_HEIGHT / BUILDING_BUTTON_SPRITE_TOTAL; REPLACE WHEN BUILDINGCLIPS CREATED FULLY AS IMAGE!!!
+	}
 }
 
 void LButton::setPosition(int x, int y)
@@ -132,68 +160,6 @@ int LButton::handleEvent(int currentState)
 	return currentState; //return old value if nothing changed
 }
 
-int LButton::handleBuildingEvent(enum BuildingType building)
-{
-	//If mouse event happened
-	if (g_pFramework->globalEvent.type == SDL_MOUSEMOTION || g_pFramework->globalEvent.type == SDL_MOUSEBUTTONDOWN || g_pFramework->globalEvent.type == SDL_MOUSEBUTTONUP)
-	{
-		//Get mouse position
-		int x, y;
-		SDL_GetMouseState(&x, &y);
-
-		//std::cout << "Clicked at X: " << x << " Y: " << y << std::endl;
-
-		//Check if mouse is in button
-		bool inside = true;
-
-		//Mouse is left of the button
-		if (x < mPosition.x) { inside = false; }
-		//Mouse is right of the button
-		else if (x > mPosition.x + mButtonHitboxRect.w) { inside = false; }
-		//Mouse is above the button
-		else if (y < mPosition.y) { inside = false; }
-		//Mouse is below the button
-		else if (y > mPosition.y + mButtonHitboxRect.h) { inside = false; }
-
-		//Mouse is outside button
-		if (!inside)
-		{
-			mCurrentSprite = BUTTON_SPRITE_MOUSE_OUT;
-			_isPressed = false; //Reset button state if mouse leaves button while _isPressed
-		}
-
-		//Mouse is inside button
-		else
-		{
-			//Set mouse over sprite
-			switch (g_pFramework->globalEvent.type)
-			{
-			case SDL_MOUSEMOTION:
-				mCurrentSprite = BUTTON_SPRITE_MOUSE_OVER_MOTION;
-			//	printf("Mouse moved.\n");
-				break;
-
-			case SDL_MOUSEBUTTONDOWN:
-				mCurrentSprite = BUTTON_SPRITE_MOUSE_DOWN;
-				_isPressed = true;
-				printf("Button clicked.\n");
-				break;
-
-			case SDL_MOUSEBUTTONUP:
-				mCurrentSprite = BUTTON_SPRITE_MOUSE_UP;
-				if (isClicked())
-				{
-					printf("Building button was clicked.\n");
-					return buttonNumber;
-				}
-				break;
-				break;
-			}
-		}
-	}
-	return building; //return old value if nothing changed
-}
-
 bool LButton::isClicked()
 {
 	if (_isPressed)
@@ -213,4 +179,10 @@ void LButton::render()
 {
 	//Show current button sprite
 	m_pButtonSpriteTexture->render(mPosition.x, mPosition.y, &buttonSpriteClips[mCurrentSprite]);
+}
+
+void LButton::renderBuilding()
+{
+	//Show current button sprite
+	m_pButtonSpriteTexture->render(mPosition.x, mPosition.y);
 }

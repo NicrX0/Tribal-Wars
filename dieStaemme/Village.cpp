@@ -23,8 +23,7 @@ Village::Village()
 	m_pVillageNameTexture = new LTexture;
 
 	//Buildings
-	m_pMainBuildingTexture = new Building(MAIN_BUILDING, g_pFramework->getScreenWidth() / 2, g_pFramework->getScreenHeight() * 0.66f);
-	m_pMainBuildingTexture->setPosition(g_pFramework->getScreenWidth() / 2 - m_pMainBuildingTexture->getBuildingTextureWidth() / 2, g_pFramework->getScreenHeight() * 0.66f);
+	m_pMainBuilding = new Building(MAIN_BUILDING, g_pFramework->getScreenWidth() / 2, g_pFramework->getScreenHeight() * 0.66f);
 
 	//Set textcolor black
 	SDL_Color textColor = { 0, 0, 0 };
@@ -70,7 +69,7 @@ void Village::update()
 	//Check if storage is full
 	checkStorage();
 
-	m_pMainBuildingTexture->handleEvent(MAIN_BUILDING);
+	m_pMainBuilding->handleEvent(MAIN_BUILDING);
 }
 
 void Village::render()
@@ -120,7 +119,7 @@ void Village::render()
 	m_pClayTextTexture->render();
 
 	//Render buildings
-	m_pMainBuildingTexture->render();
+	m_pMainBuilding->render();
 
 	//Render DebugWindow
 	DebugWindow();

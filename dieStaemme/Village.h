@@ -34,6 +34,6 @@ private:
 
 	LTexture* m_pDebugTexture;
 
-	Building* m_pMainBuildingTexture;
+	Building* m_pMainBuilding;
 };
 

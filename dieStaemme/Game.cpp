@@ -144,13 +144,10 @@ int Game::showGameScreen(int selectedScreen)
 		//Draw buttons
 		m_pExitButton->render();
 
-		//Update and draw village
+		//Update village
 		m_pVillage->update();
 		m_pVillage->render();
 
-
-		while (SDL_PollEvent(&g_pFramework->globalEvent))
-		{
 			handleVillageButtons();
 
 			switch (selectedScreen)
@@ -179,7 +176,6 @@ int Game::showGameScreen(int selectedScreen)
 				selectedScreen = 0;
 				return selectedScreen;
 			}
-		}
 
 	return selectedScreen;
 }
@@ -198,8 +194,6 @@ void Game::handleVillageButtons()
 
 int Game::handleMainMenu()
 {
-	while (SDL_PollEvent(&g_pFramework->globalEvent))
-	{
 		handleMainmenuButtons();
 		switch (selectedScreen)
 		{
@@ -235,7 +229,6 @@ int Game::handleMainMenu()
 			m_bGameRun = false;
 			return selectedScreen;
 		}
-	}
 }
 
 void Game::DebugWindow()

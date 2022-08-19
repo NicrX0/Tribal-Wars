@@ -10,6 +10,13 @@ enum LButtonSprite
 	BUTTON_SPRITE_TOTAL = 4
 };
 
+enum LBuildingButtonSprite
+{
+	BUILDING_BUTTON_SPRITE_MOUSE_OUT = 0,
+	BUILDING_BUTTON_SPRITE_MOUSE_OVER_MOTION = 1,
+	BUILDING_BUTTON_SPRITE_TOTAL = 2
+};
+
 enum Buttons
 {
 	PLAY_BUTTON = 1,
@@ -23,17 +30,17 @@ public:
 
 	LButton(int btnNumber, std::string path);
 
-	LButton(int x, int y, int w, int h);
+	LButton(int space, int btnNumber, std::string path);
 
 	void setPosition(int x, int y);
 
 	int handleEvent(int currentState);
 
-	int handleBuildingEvent(enum BuildingType);
-
 	bool isClicked();
 
 	void render();
+
+	void renderBuilding();
 
 	//Accessors
 

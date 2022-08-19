@@ -140,9 +140,15 @@ void LTexture::render(int x, int y, SDL_Rect* clip, double angle, SDL_Point* cen
 	//Set clip rendering dimensions
 	if (clip != NULL)
 	{
+		if (clip->w <= 0 || clip->h <= 0)
+		{
+			printf("clip->w || clip->h was <= 0! Everything loaded correctly?\n");
+			std::cin.get();
+		}
+
 		renderQuad.w = clip->w * g_pFramework->getScreenWidthScale();
 		renderQuad.h = clip->h * g_pFramework->getScreenHeightScale();
-	};
+	}
 
 	//clip->x = clip->x / g_pFramework->getScreenWidthScale();
 	//clip->y = clip->y / g_pFramework->getScreenHeightScale();

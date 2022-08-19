@@ -28,12 +28,14 @@ public:
 	//Renders texture at given point
 	void render(int x, int y, SDL_Rect* clip = NULL, double angle = 0.0, SDL_Point* center = NULL, SDL_RendererFlip flip = SDL_FLIP_NONE);
 
-	//Get image dimensions
+	//Get image position and dimensions
+	int getXPos() { return m_Rect.x; };
+	int getYPos() { return m_Rect.y; };
 	int getWidth() { return m_Rect.w; };
 	int getHeight() { return m_Rect.h; };
 
-	float getWidthNew() { return mWidth; };
-	float getHeightNew() { return mHeight; };
+	float getWidthOld() { return mWidth; };
+	float getHeightOld() { return mHeight; };
 
 	SDL_Rect GetRect() { return m_Rect; }
 
