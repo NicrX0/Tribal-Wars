@@ -38,8 +38,8 @@ public:
 	bool getShootKeystate() { return shoot_pressed; }
 
 	//Viewport accessors
-	float getBottomViewportX_Base() { return bottomViewport.x; }
-	float getBottomViewportY_Base() { return bottomViewport.y; }
+	float getBottomViewportX_Base() { std::cout << "X_Base: " << bottomViewport.x << std::endl; return bottomViewport.x; }
+	float getBottomViewportY_Base() { std::cout << "Y_Base: " << bottomViewport.y << std::endl; return bottomViewport.y; }
 	float getBottomViewportWidth() { return bottomViewport.w; }
 	float getBottomViewportHeight() { return bottomViewport.h; }
 
