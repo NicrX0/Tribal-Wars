@@ -23,7 +23,8 @@ Village::Village()
 	m_pVillageNameTexture = new LTexture;
 
 	//Buildings
-	m_pMainBuilding = new Building(MAIN_BUILDING, g_pFramework->getScreenWidth() / 2, g_pFramework->getScreenHeight() * 0.66f);
+	//m_pMainBuilding = new Building(MAIN_BUILDING, g_pFramework->getBottomViewportWidth() / 2, g_pFramework->getBottomViewportHeight() / 2);
+	m_pMainBuilding = new Building(MAIN_BUILDING);
 
 	//Set textcolor black
 	SDL_Color textColor = { 0, 0, 0 };
@@ -74,8 +75,16 @@ void Village::update()
 
 void Village::render()
 {
+	//------------------------------- RENDER TO FULL SCREEN -------------------------------
+	//Set viewport to render to
+	g_pFramework->setFullscreenViewport();
+
 	//Render background
 	m_pBackgroundTexture->render();
+
+	//------------------------------- RENDER TO TOP SCREEN -------------------------------
+	//Set viewport to render to
+	g_pFramework->setTopViewport();
 
 	//Set position of village name texture and render to screen
 	m_pVillageNameTexture->SetPos(g_pFramework->getScreenWidth() * 0.02f, g_pFramework->getScreenHeight() * 0.01f);
@@ -118,27 +127,17 @@ void Village::render()
 	m_pIronTextTexture->render();
 	m_pClayTextTexture->render();
 
+	//------------------------------- RENDER TO BOTTOM SCREEN -------------------------------
+	// //Set viewport to render to
+	g_pFramework->setBottomViewport();
+
 	//Render buildings
 	m_pMainBuilding->render();
 
-	//Render DebugWindow
-	DebugWindow();
+	
 }
 
 void Village::handleButtons()
 {
 
-}
-
-void Village::DebugWindow()
-{
-	//Set textcolor black
-	SDL_Color textColor = { 0, 0, 0 };
-
-	if (!m_pDebugTexture->loadFromRenderedText("TPS: " + std::to_string(g_pFramework->getTPS()), textColor))
-	{
-		printf("Failed to render DebugWindow in Village!\n");
-	}
-
-	m_pDebugTexture->render();
 }

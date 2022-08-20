@@ -71,25 +71,11 @@ LButton::LButton(int space, int btnNumber, std::string path)
 		printf("Error loading button texture!\n");
 	}
 
-	BUTTON_TEXTURE_WIDTH = m_pButtonSpriteTexture->getWidth();
-	BUTTON_TEXTURE_HEIGHT = m_pButtonSpriteTexture->getHeight();
-
-	BUTTON_WIDTH = m_pButtonSpriteTexture->getWidthOld();
-	BUTTON_HEIGHT = m_pButtonSpriteTexture->getHeightOld();
+	mButtonSpriteRect.w = m_pButtonSpriteTexture->getWidth();
+	mButtonSpriteRect.h = m_pButtonSpriteTexture->getHeight();
 
 	mButtonHitboxRect.w = m_pButtonSpriteTexture->getWidth();
 	mButtonHitboxRect.h = m_pButtonSpriteTexture->getHeight();
-	//mButtonHitboxRect.h = m_pButtonSpriteTexture->getHeight() / BUILDING_BUTTON_SPRITE_TOTAL; REPLACE WHEN BUILDINGCLIPS CREATED FULLY AS IMAGE!!!
-
-	for (int i = 0; i < BUILDING_BUTTON_SPRITE_TOTAL; ++i)
-	{
-		buttonSpriteClips[i].x = 0;
-		buttonSpriteClips[i].y = i * BUTTON_HEIGHT;
-		//buttonSpriteClips[i].y = i * BUTTON_HEIGHT / BUILDING_BUTTON_SPRITE_TOTAL; REPLACE WHEN BUILDINGCLIPS CREATED FULLY AS IMAGE!!!
-		buttonSpriteClips[i].w = BUTTON_WIDTH;
-		buttonSpriteClips[i].h = BUTTON_HEIGHT;
-		//buttonSpriteClips[i].h = BUTTON_HEIGHT / BUILDING_BUTTON_SPRITE_TOTAL; REPLACE WHEN BUILDINGCLIPS CREATED FULLY AS IMAGE!!!
-	}
 }
 
 void LButton::setPosition(int x, int y)
@@ -184,5 +170,6 @@ void LButton::render()
 void LButton::renderBuilding()
 {
 	//Show current button sprite
-	m_pButtonSpriteTexture->render(mPosition.x, mPosition.y);
+	//std::cout << "X: " << mPosition.x << " Y: " << mPosition.y << " W: " << mButtonSpriteRect.w << " H: " << mButtonSpriteRect.h << std::endl;
+	m_pButtonSpriteTexture->render(mPosition.x, mPosition.y, &mButtonSpriteRect);
 }

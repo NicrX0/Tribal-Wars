@@ -55,7 +55,8 @@ void Game::Run()
 		g_pFramework->Update();
 
 		//Show TPS
-		DebugWindow();
+		//g_pFramework->setFullscreenViewport();
+		//DebugWindow();
 
 		//Update screen
 		g_pFramework->Render();
@@ -101,6 +102,9 @@ bool Game::loadMedia(SDL_Renderer* renderer)
 
 int Game::showMainmenu(int selectedScreen)
 {
+		//Set viewport
+		g_pFramework->setFullscreenViewport();
+
 		//Render main screen
 		m_pGreyBackgroundTexture->render();
 
@@ -141,6 +145,9 @@ int Game::showMainmenu(int selectedScreen)
 
 int Game::showGameScreen(int selectedScreen)
 {
+		//Set viewport
+		g_pFramework->setFullscreenViewport();
+
 		//Draw buttons
 		m_pExitButton->render();
 

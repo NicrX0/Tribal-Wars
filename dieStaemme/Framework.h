@@ -15,6 +15,9 @@ public:
 	void Update();
 	void Clear();
 	void Render();
+	void setFullscreenViewport() { SDL_RenderSetViewport(gRenderer, &fullscreenViewport); }
+	void setTopViewport() { SDL_RenderSetViewport(gRenderer, &topViewport); }
+	void setBottomViewport() { SDL_RenderSetViewport(gRenderer, &bottomViewport); }
 	void resetKeyFlags();
 
 	SDL_Surface* GetScreen() { return m_pScreen; }
@@ -33,6 +36,22 @@ public:
 	bool getLeftKeystate() { return left_pressed; }
 	bool getRightKeystate() { return right_pressed; }
 	bool getShootKeystate() { return shoot_pressed; }
+
+	//Viewport accessors
+	float getBottomViewportX_Base() { return bottomViewport.x; }
+	float getBottomViewportY_Base() { return bottomViewport.y; }
+	float getBottomViewportWidth() { return bottomViewport.w; }
+	float getBottomViewportHeight() { return bottomViewport.h; }
+
+	float getTopViewportX_Base() { return topViewport.x; }
+	float getTopViewportY_Base() { return topViewport.y; }
+	float getTopViewportWidth() { return topViewport.w; }
+	float getTopViewportHeight() { return topViewport.h; }
+
+	float getFullscreenViewportX_Base() { return fullscreenViewport.x; }
+	float getFullscreenViewportY_Base() { return fullscreenViewport.y; }
+	float getFullscreenViewportWidth() { return fullscreenViewport.w; }
+	float getFullscreenViewportHeight() { return fullscreenViewport.h; }
 
 	int getTPS() { return TicksPerSecond; }
 
@@ -61,6 +80,11 @@ private:
 	//Keyboard handling
 	KeyboardHandler* m_pKeyboard;
 	bool up_pressed, down_pressed, left_pressed, right_pressed, shoot_pressed;
+
+	//Viewports
+	SDL_Rect fullscreenViewport;
+	SDL_Rect topViewport;
+	SDL_Rect bottomViewport;
 };
 
 

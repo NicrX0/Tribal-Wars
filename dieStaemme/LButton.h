@@ -55,7 +55,7 @@ public:
 
 	LButtonSprite getCurrentSprite() { return mCurrentSprite; }
 
-	void getButtonCoords() { std::cout << "X: " << mButtonHitboxRect.x << " Y: " << mButtonHitboxRect.y << "W: " << mButtonHitboxRect.w << " H: " << mButtonHitboxRect.h << std::endl; }
+	void getButtonCoords() { std::cout << "X: " << mPosition.x << " Y: " << mPosition.y << "W: " << mButtonHitboxRect.w << " H: " << mButtonHitboxRect.h << std::endl; }
 
 private:
 

@@ -55,6 +55,27 @@ bool Framework::Init(int ScreenWidth, int ScreenHeight)
 		}
 	}
 
+	//Initialize Viewports
+	//Fullscreen
+	fullscreenViewport.x = 0;
+	fullscreenViewport.y = 0;
+	fullscreenViewport.w = getScreenWidth();
+	fullscreenViewport.h = getScreenHeight();
+
+	//Top
+	topViewport.x = 0;
+	topViewport.y = 0;
+	topViewport.w = getScreenWidth();
+	topViewport.h = getScreenHeight() / 3;
+
+	//Bottom
+	bottomViewport.x = 0;
+	bottomViewport.y = getScreenHeight() / 3;
+	bottomViewport.w = getScreenWidth();
+	bottomViewport.h = getScreenHeight() * 0.66f;
+
+
+
 	m_pKeyboard = new KeyboardHandler;
 
 	Tickcounter = 0;

@@ -17,7 +17,7 @@ public:
 	void render();
 	int handleEvent(int currentState);
 
-	Building(int type, int x_pos, int y_pos);
+	Building(int type);
 	
 private:
 
