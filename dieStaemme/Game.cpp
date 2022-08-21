@@ -23,7 +23,13 @@ bool Game::Initialize(SDL_Renderer* renderer)
 	m_pVillage = new Village;
 
 	m_pDebugTexture = new LTexture;
-	m_pDebugTexture->SetPos(g_pFramework->getScreenWidth() * 0.02f, g_pFramework->getScreenHeight() * 0.2f);
+	m_pDebugTexture->SetPos(g_pFramework->getScreenWidth() * 0.02f, g_pFramework->getScreenHeight() * 0.1f);
+
+	m_pMouseXPosTexture = new LTexture;
+	m_pMouseXPosTexture->SetPos(g_pFramework->getScreenWidth() * 0.02f, g_pFramework->getScreenHeight() * 0.15f);
+
+	m_pMouseYPosTexture = new LTexture;
+	m_pMouseYPosTexture->SetPos(g_pFramework->getScreenWidth() * 0.02f, g_pFramework->getScreenHeight() * 0.2f);
 
 	return success;
 }
@@ -55,8 +61,8 @@ void Game::Run()
 		g_pFramework->Update();
 
 		//Show TPS
-		//g_pFramework->setFullscreenViewport();
-		//DebugWindow();
+		g_pFramework->setFullscreenViewport();
+		DebugWindow();
 
 		//Update screen
 		g_pFramework->Render();
@@ -240,13 +246,29 @@ int Game::handleMainMenu()
 
 void Game::DebugWindow()
 {
+	//Get mouse position
+	int x, y;
+	SDL_GetMouseState(&x, &y);
+
 	//Set textcolor black
 	SDL_Color textColor = { 0, 0, 0 };
 
 	if (!m_pDebugTexture->loadFromRenderedText("TPS: " + std::to_string(g_pFramework->getTPS()), textColor))
 	{
-		printf("Failed to render DebugWindow in Village!\n");
+		printf("Failed to render DebugWindow in Game!\n");
+	}
+
+	if (!m_pMouseXPosTexture->loadFromRenderedText("MouseX: " + std::to_string(x), textColor))
+	{
+		printf("Failed to render m_pMouseXPosTexture in Game!\n");
+	}
+
+	if (!m_pMouseYPosTexture->loadFromRenderedText("MouseY: " + std::to_string(y), textColor))
+	{
+		printf("Failed to render DebugWindow in Game!\n");
 	}
 
 	m_pDebugTexture->render();
+	m_pMouseXPosTexture->render();
+	m_pMouseYPosTexture->render();
 }

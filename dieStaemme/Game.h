@@ -45,7 +45,10 @@ private:
 	LTexture* m_pHouse0Texture;
 	LTexture* m_pHouse1Texture;
 
+	//Debug info textures
 	LTexture* m_pDebugTexture;
+	LTexture* m_pMouseXPosTexture;
+	LTexture* m_pMouseYPosTexture;
 
 	//Village
 	Village* m_pVillage;
