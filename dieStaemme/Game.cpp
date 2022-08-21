@@ -9,7 +9,7 @@ bool Game::Initialize(SDL_Renderer* renderer)
 {
 	bool success = true;
 
-	//Create assets and load graphics
+	//Create assets and load graphics test
 	if (!loadMedia(renderer))
 	{
 		printf("Failed to load media!\n");
