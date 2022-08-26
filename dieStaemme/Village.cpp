@@ -23,7 +23,8 @@ Village::Village()
 	m_pVillageNameTexture = new LTexture;
 
 	//Buildings
-	//m_pMainBuilding = new Building(MAIN_BUILDING, g_pFramework->getBottomViewportWidth() / 2, g_pFramework->getBottomViewportHeight() / 2);
+	//Set viewport to render to
+	g_pFramework->setBottomViewport();
 	m_pMainBuilding = new Building(MAIN_BUILDING);
 
 	//Set textcolor black
@@ -128,7 +129,7 @@ void Village::render()
 	m_pClayTextTexture->render();
 
 	//------------------------------- RENDER TO BOTTOM SCREEN -------------------------------
-	// //Set viewport to render to
+	//Set viewport to render to
 	g_pFramework->setBottomViewport();
 
 	//Render buildings

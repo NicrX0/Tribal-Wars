@@ -5,6 +5,9 @@ LButton::LButton()
 	mPosition.x = NULL;
 	mPosition.y = NULL;
 
+	mPositionTexture.x = NULL;
+	mPositionTexture.y = NULL;
+
 	_isPressed = false;
 	_isReleased = false;
 	_buttonClicked = false;
@@ -23,6 +26,9 @@ LButton::LButton(int btnNumber, std::string path)
 
 	mPosition.x = NULL;
 	mPosition.y = NULL;
+
+	mPositionTexture.x = NULL;
+	mPositionTexture.y = NULL;
 
 	mCurrentSprite = BUTTON_SPRITE_MOUSE_OUT;
 
@@ -62,6 +68,9 @@ LButton::LButton(int space, int btnNumber, std::string path)
 	mPosition.x = NULL;
 	mPosition.y = NULL;
 
+	mPositionTexture.x = NULL;
+	mPositionTexture.y = NULL;
+
 	mCurrentSprite = BUTTON_SPRITE_MOUSE_OUT;
 
 	//Load button texture
@@ -80,8 +89,13 @@ LButton::LButton(int space, int btnNumber, std::string path)
 
 void LButton::setPosition(int x, int y)
 {
-	mPosition.x = x;
-	mPosition.y = y;
+	currentViewportRect = g_pFramework->getCurrentViewportRect();
+
+	mPosition.x = x + currentViewportRect.x;
+	mPosition.y = y + currentViewportRect.y;
+
+	mPositionTexture.x = x;
+	mPositionTexture.y = y;
 }
 
 
@@ -164,12 +178,12 @@ bool LButton::isClicked()
 void LButton::render()
 {
 	//Show current button sprite
-	m_pButtonSpriteTexture->render(mPosition.x, mPosition.y, &buttonSpriteClips[mCurrentSprite]);
+	m_pButtonSpriteTexture->render(mPositionTexture.x, mPositionTexture.y, &buttonSpriteClips[mCurrentSprite]);
 }
 
 void LButton::renderBuilding()
 {
 	//Show current button sprite
 	//std::cout << "X: " << mPosition.x << " Y: " << mPosition.y << " W: " << mButtonSpriteRect.w << " H: " << mButtonSpriteRect.h << std::endl;
-	m_pButtonSpriteTexture->render(mPosition.x, mPosition.y, &mButtonSpriteRect);
+	m_pButtonSpriteTexture->render(mPositionTexture.x, mPositionTexture.y, &mButtonSpriteRect);
 }

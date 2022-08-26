@@ -15,9 +15,9 @@ public:
 	void Update();
 	void Clear();
 	void Render();
-	void setFullscreenViewport() { SDL_RenderSetViewport(gRenderer, &fullscreenViewport); }
-	void setTopViewport() { SDL_RenderSetViewport(gRenderer, &topViewport); }
-	void setBottomViewport() { SDL_RenderSetViewport(gRenderer, &bottomViewport); }
+	void setFullscreenViewport() { SDL_RenderSetViewport(gRenderer, &fullscreenViewport), currentViewportRect = fullscreenViewport; }
+	void setTopViewport() { SDL_RenderSetViewport(gRenderer, &topViewport), currentViewportRect = topViewport; }
+	void setBottomViewport() { SDL_RenderSetViewport(gRenderer, &bottomViewport), currentViewportRect = bottomViewport; }
 	void resetKeyFlags();
 
 	SDL_Surface* GetScreen() { return m_pScreen; }
@@ -38,6 +38,8 @@ public:
 	bool getShootKeystate() { return shoot_pressed; }
 
 	//Viewport accessors
+	SDL_Rect getCurrentViewportRect() { return currentViewportRect; }
+
 	float getBottomViewportX_Base() { std::cout << "X_Base: " << bottomViewport.x << std::endl; return bottomViewport.x; }
 	float getBottomViewportY_Base() { std::cout << "Y_Base: " << bottomViewport.y << std::endl; return bottomViewport.y; }
 	float getBottomViewportWidth() { return bottomViewport.w; }
@@ -82,6 +84,7 @@ private:
 	bool up_pressed, down_pressed, left_pressed, right_pressed, shoot_pressed;
 
 	//Viewports
+	SDL_Rect currentViewportRect;
 	SDL_Rect fullscreenViewport;
 	SDL_Rect topViewport;
 	SDL_Rect bottomViewport;

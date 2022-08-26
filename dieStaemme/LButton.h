@@ -77,7 +77,11 @@ private:
 
 	SDL_Rect buttonSpriteClips[BUTTON_SPRITE_TOTAL];
 
+	SDL_Rect currentViewportRect;
+
 	SDL_Point mPosition;
+
+	SDL_Point mPositionTexture;
 
 	LButtonSprite mCurrentSprite;
 
