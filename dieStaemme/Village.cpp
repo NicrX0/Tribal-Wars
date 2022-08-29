@@ -22,18 +22,13 @@ Village::Village()
 	//Load village name texture
 	m_pVillageNameTexture = new LTexture;
 
-	//Buildings
-	//Set viewport to render to
-	g_pFramework->setBottomViewport();
-	m_pMainBuilding = new Building(MAIN_BUILDING);
-
 	//Set textcolor black
 	SDL_Color textColor = { 0, 0, 0 };
 
 	if (!m_pVillageNameTexture->loadFromRenderedText("Village: " + name, textColor))
 	{
 		printf("Failed to render village name text texture!\n");
-	}
+	}	
 
 	//Create text texture
 	m_pWoodTextTexture = new LTexture;
@@ -43,6 +38,33 @@ Village::Village()
 	//Create debug text texture
 	m_pDebugTexture = new LTexture;
 	m_pDebugTexture->SetPos(g_pFramework->getScreenWidth() * 0.02f, g_pFramework->getScreenHeight() * 0.2f);
+
+	//Buildings
+	//Set viewport to render to
+	g_pFramework->setBottomViewport();
+	m_pMainBuilding = new Building(MAIN_BUILDING);
+
+	//Set viewport to render to
+	g_pFramework->setBuildingMenuViewport();
+	//Initialize building name texture
+	m_pBuildingNameTexture = new LTexture;
+
+	//Set textcolor black
+	textColor = { 0, 0, 0 };
+	if (!m_pBuildingNameTexture->loadFromRenderedText(m_pMainBuilding->getBuildingName(), textColor))
+	{
+		printf("Failed to render m_pBuildingNameTexture in Building.cpp!\n");
+	}
+	m_pBuildingNameTexture->SetPos((g_pFramework->currentViewportRect.w / 2) - (m_pBuildingNameTexture->getWidth() / 2), g_pFramework->currentViewportRect.h * 0.006f);
+
+	//Test
+	g_pFramework->setBuildingMenuViewport();
+	m_pBuildingMenuTexture = new LTexture;
+	if (!m_pBuildingMenuTexture->loadFromFile("assets/village/building_menu.png", g_pFramework->GetRenderer()))
+	{
+		printf("Error loading building_menu.png\n");
+	}
+	m_pBuildingMenuTexture->SetPos(5, 0);
 }
 
 Village::~Village()
@@ -71,7 +93,8 @@ void Village::update()
 	//Check if storage is full
 	checkStorage();
 
-	m_pMainBuilding->handleEvent(MAIN_BUILDING);
+	//Check for events
+	handleButtons();
 }
 
 void Village::render()
@@ -134,11 +157,18 @@ void Village::render()
 
 	//Render buildings
 	m_pMainBuilding->render();
-
-	
 }
 
 void Village::handleButtons()
 {
 
+	m_pMainBuilding->handleEvent(MAIN_BUILDING);
+
+	if (m_pMainBuilding->checkClickState())
+	{
+		//Set viewport to render to
+		g_pFramework->setBuildingMenuViewport();
+		m_pBuildingMenuTexture->rendertest();
+		m_pBuildingNameTexture->render();
+	}
 }

@@ -158,8 +158,8 @@ int Game::showGameScreen(int selectedScreen)
 		m_pExitButton->render();
 
 		//Update village
-		m_pVillage->update();
 		m_pVillage->render();
+		m_pVillage->update();
 
 			handleVillageButtons();
 

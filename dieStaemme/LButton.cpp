@@ -83,8 +83,8 @@ LButton::LButton(int space, int btnNumber, std::string path)
 	mButtonSpriteRect.w = m_pButtonSpriteTexture->getWidth();
 	mButtonSpriteRect.h = m_pButtonSpriteTexture->getHeight();
 
-	mButtonHitboxRect.w = m_pButtonSpriteTexture->getWidth();
-	mButtonHitboxRect.h = m_pButtonSpriteTexture->getHeight();
+	mButtonHitboxRect.w = m_pButtonSpriteTexture->getWidth() * g_pFramework->getScreenWidthScale();
+	mButtonHitboxRect.h = m_pButtonSpriteTexture->getHeight() * g_pFramework->getScreenHeightScale();
 }
 
 void LButton::setPosition(int x, int y)
@@ -143,12 +143,20 @@ int LButton::handleEvent(int currentState)
 			case SDL_MOUSEBUTTONDOWN:
 				mCurrentSprite = BUTTON_SPRITE_MOUSE_DOWN;
 				_isPressed = true;
-				printf("Button clicked.\n");
+				//printf("Button clicked.\n");
 				break;
 
 			case SDL_MOUSEBUTTONUP:	
 				if(isClicked())
 				{
+					if (_buttonClicked)
+					{
+						_buttonClicked = false;
+					}
+					else if (!_buttonClicked)
+					{
+						_buttonClicked = true;
+					}
 					mCurrentSprite = BUTTON_SPRITE_MOUSE_OUT; //reset sprite after click
 					return buttonNumber;
 				}
@@ -166,7 +174,7 @@ bool LButton::isClicked()
 	{
 		_isPressed = false;
 		_isReleased = true;
-		printf("Button was clicked.\n");
+		//printf("Button was clicked.\n");
 		return true;
 	}
 	else

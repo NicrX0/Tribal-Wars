@@ -74,6 +74,11 @@ bool Framework::Init(int ScreenWidth, int ScreenHeight)
 	bottomViewport.w = getScreenWidth();
 	bottomViewport.h = getScreenHeight() * 0.66f;
 
+	//Building
+	buildingMenuViewport.x = 10;
+	buildingMenuViewport.y = getScreenHeight() * 0.3f;
+	buildingMenuViewport.w = getScreenWidth() / 3;
+	buildingMenuViewport.h = getScreenHeight() * 0.66f;
 
 
 	m_pKeyboard = new KeyboardHandler;

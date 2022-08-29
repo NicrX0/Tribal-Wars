@@ -18,6 +18,7 @@ public:
 	void setFullscreenViewport() { SDL_RenderSetViewport(gRenderer, &fullscreenViewport), currentViewportRect = fullscreenViewport; }
 	void setTopViewport() { SDL_RenderSetViewport(gRenderer, &topViewport), currentViewportRect = topViewport; }
 	void setBottomViewport() { SDL_RenderSetViewport(gRenderer, &bottomViewport), currentViewportRect = bottomViewport; }
+	void setBuildingMenuViewport() { SDL_RenderSetViewport(gRenderer, &buildingMenuViewport), currentViewportRect = buildingMenuViewport; }
 	void resetKeyFlags();
 
 	SDL_Surface* GetScreen() { return m_pScreen; }
@@ -59,6 +60,8 @@ public:
 
 	SDL_Event globalEvent;
 
+	SDL_Rect currentViewportRect; //Leave global?
+
 private:
 
 	float m_ScreenWidth;
@@ -84,10 +87,11 @@ private:
 	bool up_pressed, down_pressed, left_pressed, right_pressed, shoot_pressed;
 
 	//Viewports
-	SDL_Rect currentViewportRect;
+	
 	SDL_Rect fullscreenViewport;
 	SDL_Rect topViewport;
 	SDL_Rect bottomViewport;
+	SDL_Rect buildingMenuViewport;
 };
 
 

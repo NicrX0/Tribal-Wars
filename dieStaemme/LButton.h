@@ -38,6 +38,8 @@ public:
 
 	bool isClicked();
 
+	bool buttonState() { return _buttonClicked; }
+
 	void render();
 
 	void renderBuilding();

@@ -5,7 +5,7 @@
 
 int main(int argc, char* args[])
 {
-    if (!g_pFramework->Init(800.0f, 600.0f)) //Set aspect ratio here
+    if (!g_pFramework->Init(1920.0f, 1080.0f)) //Set aspect ratio here
     {
         printf("Error, failed to initialize Framework!\n");
     }

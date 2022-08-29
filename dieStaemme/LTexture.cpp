@@ -127,6 +127,11 @@ void LTexture::render()
 	SDL_RenderCopy(m_pRenderer, mTexture, NULL, &m_Rect);
 }
 
+void LTexture::rendertest()
+{
+	SDL_RenderCopy(m_pRenderer, mTexture, NULL, NULL);
+}
+
 void LTexture::render(int x, int y, SDL_Rect* clip, double angle, SDL_Point* center, SDL_RendererFlip flip)
 {
 	if (mWidth <= 0.0f || mHeight <= 0.0f)
