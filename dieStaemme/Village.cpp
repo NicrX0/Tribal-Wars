@@ -43,28 +43,6 @@ Village::Village()
 	//Set viewport to render to
 	g_pFramework->setBottomViewport();
 	m_pMainBuilding = new Building(MAIN_BUILDING);
-
-	//Set viewport to render to
-	g_pFramework->setBuildingMenuViewport();
-	//Initialize building name texture
-	m_pBuildingNameTexture = new LTexture;
-
-	//Set textcolor black
-	textColor = { 0, 0, 0 };
-	if (!m_pBuildingNameTexture->loadFromRenderedText(m_pMainBuilding->getBuildingName(), textColor))
-	{
-		printf("Failed to render m_pBuildingNameTexture in Building.cpp!\n");
-	}
-	m_pBuildingNameTexture->SetPos((g_pFramework->currentViewportRect.w / 2) - (m_pBuildingNameTexture->getWidth() / 2), g_pFramework->currentViewportRect.h * 0.006f);
-
-	//Test
-	g_pFramework->setBuildingMenuViewport();
-	m_pBuildingMenuTexture = new LTexture;
-	if (!m_pBuildingMenuTexture->loadFromFile("assets/village/building_menu.png", g_pFramework->GetRenderer()))
-	{
-		printf("Error loading building_menu.png\n");
-	}
-	m_pBuildingMenuTexture->SetPos(5, 0);
 }
 
 Village::~Village()
@@ -161,14 +139,5 @@ void Village::render()
 
 void Village::handleButtons()
 {
-
 	m_pMainBuilding->handleEvent(MAIN_BUILDING);
-
-	if (m_pMainBuilding->checkClickState())
-	{
-		//Set viewport to render to
-		g_pFramework->setBuildingMenuViewport();
-		m_pBuildingMenuTexture->rendertest();
-		m_pBuildingNameTexture->render();
-	}
 }

@@ -15,6 +15,7 @@ public:
 
 	void setPosition(int x, int y);
 	void render();
+	void renderBuildingOverlay();
 	int handleEvent(int currentState);
 	std::string getBuildingName() { return m_name; }
 
@@ -28,6 +29,9 @@ private:
 	std::string m_name;
 
 	LButton* m_pBuildingButton;
+	LTexture* m_pBuildingMenuTexture;
+	LTexture* m_pBuildingNameTexture;
+	LTexture* m_pBuildingLevelTexture;
 
 	bool isClicked;
 };

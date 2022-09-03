@@ -29,8 +29,6 @@ private:
 	LTexture* m_pIronTextTexture;
 	LTexture* m_pClayTextTexture;
 	LTexture* m_pBackgroundTexture;
-	LTexture* m_pBuildingMenuTexture;
-	LTexture* m_pBuildingNameTexture;
 
 	LTexture* m_pDebugTexture;
 
