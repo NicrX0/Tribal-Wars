@@ -7,9 +7,9 @@ Village::Village()
 	ress_wood = 200.0f;
 	ress_iron = 200.0f;
 	ress_clay = 200.0f;
-	wood_per_tick = 0.0000002f;
-	iron_per_tick = 0.0000002f;
-	clay_per_tick = 0.0000002f;
+	wood_per_tick = 0.00002f;
+	iron_per_tick = 0.00002f;
+	clay_per_tick = 0.00002f;
 
 
 	//Load background texture

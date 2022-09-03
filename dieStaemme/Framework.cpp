@@ -112,9 +112,9 @@ void Framework::Update()
 	g_pTimer->Update();
 
 	//TPS calculator
-	Tickcounter++; //increment Tickcounter
 	if (g_pTimer->TPSstatus()) //Reset all if flag is true
 	{
+		Tickcounter++; //increment Tickcounter
 		TicksPerSecond = Tickcounter / g_pTimer->getCurTime();
 		g_pTimer->TPSreset();
 	}
