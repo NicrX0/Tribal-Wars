@@ -17,7 +17,7 @@ void Timer::Update()
 	m_fElapsed = m_fCurTime - m_fLastTime;
 	m_fLastTime = m_fCurTime;
 
-	if (m_fCurTime - m_fLastSavedTick >= 1.0f)
+	if (m_fCurTime - m_fLastSavedTick >= 0.009f)
 	{
 		m_fTicksPerSecond = m_fCurTime - m_fLastSavedTick;
 		m_fLastSavedTick = m_fCurTime;
